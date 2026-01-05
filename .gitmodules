@@ -7,3 +7,6 @@
 [submodule ".config/tmux/plugins/tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule ".config/opencode"]
+	path = .config/opencode
+	url = https://github.com/LordPrkr/opencode-config.git

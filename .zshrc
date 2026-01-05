@@ -200,3 +200,6 @@ function mr-summarize() {
         echo "\nSummary not copied."
     fi
 }
+
+# Added by Ultimate Bug Scanner Installer
+alias bash='/opt/homebrew/bin/bash'

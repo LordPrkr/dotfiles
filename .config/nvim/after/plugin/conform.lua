@@ -12,6 +12,8 @@ require("conform").setup({
 
 		json = { "biome-check", "prettierd", "prettier", stop_after_first = true },
 
+		jsonc = { "biome-check", "prettierd", "prettier", stop_after_first = true },
+
 		markdown = { "prettierd", "prettier", stop_after_first = true },
 
 		go = { "goimports", "gofmt" },
