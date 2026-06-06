@@ -16,6 +16,7 @@
 - [oh-my-zsh](https://ohmyz.sh/)
 - [Volta](https://volta.sh/)
 - Node `volta install node`
+- pi `npm install -g --ignore-scripts @earendil-works/pi-coding-agent`
 
 ### Casks
 
@@ -23,6 +24,11 @@
 - FiraCode Nerd Font `brew install font-fira-code-nerd-font`
 - Rectangle `brew install rectangle`
 - Raycast `brew install raycast`
+- cmux:
+  ```bash
+  brew tap manaflow-ai/cmux
+  brew install --cask cmux
+  ```
 
 ### Formulae
 

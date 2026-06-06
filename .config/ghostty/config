@@ -7,6 +7,10 @@ font-size = 16
 
 cursor-style = block
 cursor-style-blink = false
+shell-integration-features = no-cursor
+
+keybind = ctrl+page_up=scroll_page_up
+keybind = ctrl+page_down=scroll_page_down
 
 window-decoration = none
 window-padding-x = 16

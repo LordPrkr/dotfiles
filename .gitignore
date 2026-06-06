@@ -25,3 +25,45 @@ swarm-tools
 .claude/statsig
 .claude/history.jsonl
 .claude/stats-cache.json
+
+# Pi: preserve only insensitive, portable agent configuration.
+.pi/*
+!.pi/agent/
+.pi/agent/*
+!.pi/agent/AGENTS.md
+!.pi/agent/settings.json
+!.pi/agent/bin/
+!.pi/agent/bin/**
+!.pi/agent/extensions/
+!.pi/agent/extensions/**
+!.pi/agent/themes/
+!.pi/agent/themes/**
+!.pi/agent/npm/
+.pi/agent/npm/*
+!.pi/agent/npm/.gitignore
+!.pi/agent/npm/package.json
+
+# Pi runtime/auth/cache/session data stays local.
+.pi/notes-bridge/
+.pi/agent/agent/
+.pi/agent/auth.json
+.pi/agent/git/
+.pi/agent/intercom/
+.pi/agent/mcp-cache.json
+.pi/agent/mcp-npx-cache.json
+.pi/agent/mcp-oauth/
+.pi/agent/mcp-onboarding.json
+.pi/agent/run-history.jsonl
+.pi/agent/sessions/
+.pi/agent/skills/
+.pi/agent/npm/node_modules/
+.config/.pi/
+.config/**/.pi/
+
+# Local machine/work-specific shell customizations
+.zshrc.local
+
+# Local auth/service config
+.config/op/
+.config/mcp/mcp.json
+.config/gh
