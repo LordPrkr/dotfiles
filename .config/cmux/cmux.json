@@ -47,5 +47,9 @@
   "sidebar": {
     "openPortLinksInCmuxBrowser": false,
     "openPullRequestLinksInCmuxBrowser": false
+  },
+  "browser": {
+    "openTerminalLinksInCmuxBrowser": false,
+    "interceptTerminalOpenCommandInCmuxBrowser": false
   }
 }
