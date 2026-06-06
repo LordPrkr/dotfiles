@@ -72,10 +72,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
-    tmux
-    volta
+    # tmux
 )
-ZSH_TMUX_AUTOSTART=true
+# ZSH_TMUX_AUTOSTART=true
 
 source $ZSH/oh-my-zsh.sh
 
@@ -118,8 +117,8 @@ source <(fzf --zsh)
 eval "$(starship init zsh)"
 
 export GOPATH=$HOME/go
-export GOROOT="$(brew --prefix golang)/libexec"
-export PATH="/Users/parker/.local/bin:$PATH:${GOPATH}/bin:${GOROOT}/bin"
+export GOROOT="/opt/homebrew/opt/golang/libexec"
+export PATH="$HOME/.local/bin:$PATH:${GOPATH}/bin:${GOROOT}/bin"
 export EDITOR="nvim"
 
 alias vim="nvim"
@@ -134,72 +133,23 @@ alias tmuxcfg="nvim ~/.config/tmux/tmux.conf"
 alias sourcetmux="tmux source ~/.config/tmux/tmux.conf"
 alias dev="cd ~/dev"
 
-[ -f "/Users/parker/.ghcup/env" ] && source "/Users/parker/.ghcup/env" # ghcup-env
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-nerdfetch
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
 
 export PATH="/opt/homebrew/opt/ansible@9/bin:$PATH"
 
-export GIT_ROOT="/Users/parlandon/git"
-export GIT_APP_CORE="/Users/parlandon/git/app-core"
-alias fdm="cd /Users/parlandon/git/web-app-ui/apps/legacy-react-app && GIT_ROOT=/Users/parlandon/git yarn devMode"
+# Local machine/work-specific shell customizations live outside git.
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+[[ $- == *i* ]] && nerdfetch
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-# AWS login function
-function aws-login() {
-    # Check if the profile name is provided
-    if [ -z "$1" ]; then
-        echo "Please provide the profile name."
-        return 1
-    fi
-    # Log in to the AWS SSO profile
-    aws sso login --profile $1
-    # Extract the region from the config file
-    region=$(aws configure get region --profile $1)
-    # Export the variables as environment variables
-    export AWS_REGION=$region
-    export AWS_DEFAULT_REGION=$region
-    export AWS_PROFILE=$1
-}
-
-alias aws-sso-ai-sandbox='aws-login prod-eng-ai-sandbox'
-
-# Set up Claude Code to use Bedrock/AWS
-function claude-bedrock() {
-    export CLAUDE_CODE_USE_BEDROCK=1
-    export AWS_PROFILE=prod-eng-ai-sandbox
-    export AWS_REGION=us-west-2
-    # Uncomment below if you want to DISABLE prompt caching
-    # export DISABLE_PROMPT_CACHING=1
-    # Pass all arguments directly to the claude command
-    claude "$@"
-}
-
-
-function mr-summarize() {
-    echo "Summarizing your MR with AI..."
-    summary=$(echo "Use @agent-mr-reviewer agent to generate a MR summary. Provide the MR summary as your only output." | claude-bedrock --print --output-format json | jq -r '.result')
-    echo "\n\nSummarization complete:\n\n$summary\n\n"
-    reply=$(bash -c "read -n 1 -s -r -p \"Copy to clipboard? (y/n) \" key; echo \$key")
-    if [[ $reply == "y" ]]; then
-        echo "$summary" | pbcopy
-        echo "\nSummary copied to clipboard!"
-    else
-        echo "\nSummary not copied."
-    fi
-}
-
-# Added by Ultimate Bug Scanner Installer
-alias bash='/opt/homebrew/bin/bash'
+# pnpm
+export PNPM_HOME="/Users/parker/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end

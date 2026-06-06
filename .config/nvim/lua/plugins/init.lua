@@ -16,7 +16,7 @@ return {
 
 	{
 		"nvim-telescope/telescope.nvim",
-		branch = "0.1.x",
+		version = "*",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -37,8 +37,11 @@ return {
 	},
 	{ "Bilal2453/luvit-meta", lazy = true },
 
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-	"nvim-treesitter/playground",
+	{
+		"nvim-treesitter/nvim-treesitter",
+		lazy = "false",
+		build = ":TSUpdate",
+	},
 	{
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",

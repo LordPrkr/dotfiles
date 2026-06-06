@@ -1,0 +1,17 @@
+{
+  "lastChangelogVersion": "0.78.1",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.5",
+  "defaultThinkingLevel": "medium",
+  "theme": "catppuccin-mocha",
+  "packages": [
+    "npm:pi-subagents",
+    "git:github.com/joelhooks/pi-notes",
+    "npm:pi-lens",
+    "npm:pi-intercom",
+    "npm:pi-mcp-adapter",
+    "npm:pi-cmux",
+    "npm:pi-web-access"
+  ],
+  "hideThinkingBlock": true
+}

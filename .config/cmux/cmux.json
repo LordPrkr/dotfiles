@@ -1,0 +1,55 @@
+{
+  "$schema": "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
+  "schemaVersion": 1,
+  "app": {
+    "appearance": "dark",
+    "appIcon": "dark",
+    "minimalMode": true
+  },
+  "workspaceColors": {
+    "indicatorStyle": "leftRail",
+    "selectionColor": "#cba6f7",
+    "notificationBadgeColor": "#f38ba8",
+    "colors": {
+      "Rosewater": "#f5e0dc",
+      "Flamingo": "#f2cdcd",
+      "Pink": "#f5c2e7",
+      "Mauve": "#cba6f7",
+      "Red": "#f38ba8",
+      "Maroon": "#eba0ac",
+      "Peach": "#fab387",
+      "Yellow": "#f9e2af",
+      "Green": "#a6e3a1",
+      "Teal": "#94e2d5",
+      "Sky": "#89dceb",
+      "Sapphire": "#74c7ec",
+      "Blue": "#89b4fa",
+      "Lavender": "#b4befe"
+    }
+  },
+  "sidebarAppearance": {
+    "tintOpacity": 0.35,
+    "matchTerminalBackground": false,
+    "lightModeTintColor": "#eff1f5",
+    "tintColor": "#1e1e2e",
+    "darkModeTintColor": "#1e1e2e"
+  },
+  "shortcuts": {
+    "bindings": {
+      "focusLeft": "cmd+ctrl+left",
+      "focusRight": "cmd+ctrl+right",
+      "focusUp": "cmd+ctrl+up",
+      "focusDown": "cmd+ctrl+down",
+      "globalSearch": "cmd+shift+f",
+      "findInDirectory": null
+    }
+  },
+  "sidebar": {
+    "openPortLinksInCmuxBrowser": false,
+    "openPullRequestLinksInCmuxBrowser": false
+  },
+  "browser": {
+    "openTerminalLinksInCmuxBrowser": false,
+    "interceptTerminalOpenCommandInCmuxBrowser": false
+  }
+}

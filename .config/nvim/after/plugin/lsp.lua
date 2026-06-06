@@ -60,13 +60,23 @@ vim.lsp.config("denols", {
 	root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
 })
 
-vim.lsp.config("ts_ls", {
-	workspace_required = false,
+-- vim.lsp.config("ts_ls", {
+-- 	workspace_required = false,
+-- 	cmd_env = { NODE_OPTIONS = "--max-old-space-size=8192" },
+-- })
+
+vim.lsp.config("eslint", {
+	cmd = {
+		"node",
+		"--max-old-space-size=8192",
+		vim.fn.stdpath("data") .. "/mason/bin/vscode-eslint-language-server",
+		"--stdio",
+	},
 })
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
-	ensure_installed = { "ts_ls", "eslint", "rust_analyzer", "gopls" },
+	ensure_installed = { "eslint", "rust_analyzer", "gopls" },
 	automatic_enable = { exclude = "hls" },
 })
 
