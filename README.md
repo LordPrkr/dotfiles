@@ -51,6 +51,7 @@
 - go `brew install go`
 - yt-dlp `brew install yt-dlp`
 - ffmpeg `brew install ffmpeg`
+- tree-sitter-cli `brew install tree-sitter-cli`
 
 ### Obsidian
 
