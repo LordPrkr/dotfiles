@@ -46,10 +46,19 @@
   },
   "sidebar": {
     "openPortLinksInCmuxBrowser": false,
-    "openPullRequestLinksInCmuxBrowser": false
+    "openPullRequestLinksInCmuxBrowser": false,
+    "showProgress": true
   },
   "browser": {
     "openTerminalLinksInCmuxBrowser": false,
     "interceptTerminalOpenCommandInCmuxBrowser": false
+  },
+  "notifications": {
+    "sound": "custom_file",
+    "customSoundFilePath": "/System/Library/Sounds/Blow.aiff",
+    "paneFlash": true
+  },
+  "terminal": {
+    "autoResumeAgentSessions": true
   }
 }

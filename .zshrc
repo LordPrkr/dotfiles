@@ -4,6 +4,11 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+# Homebrew shell environment
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -104,7 +109,16 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # fzf config
-export FZF_DEFAULT_OPTS='--tmux'
+export FZF_DEFAULT_COMMAND='fd --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+export FZF_DEFAULT_OPTS='
+  --tmux
+  --height=80%
+  --layout=reverse
+  --border
+  --preview "bat --style=numbers --color=always --line-range=:500 {} 2>/dev/null || eza -la --color=always {} 2>/dev/null"
+'
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
@@ -124,9 +138,14 @@ export EDITOR="nvim"
 alias vim="nvim"
 alias vi="nvim"
 alias ls="eza"
+alias ll="eza -la --git --icons"
+alias tree="eza --tree --icons"
 alias cat="bat"
+alias grep="rg"
+alias path='echo $PATH | tr ":" "\n"'
 alias zshcfg="nvim ~/.zshrc"
 alias sourcezsh="source ~/.zshrc"
+alias reload="source ~/.zshrc"
 alias starshipcfg="nvim ~/.config/starship.toml"
 alias ghosttycfg="nvim ~/.config/ghostty/config"
 alias tmuxcfg="nvim ~/.config/tmux/tmux.conf"
@@ -144,12 +163,19 @@ export PATH="/opt/homebrew/opt/ansible@9/bin:$PATH"
 # Local machine/work-specific shell customizations live outside git.
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
 
-[[ $- == *i* ]] && nerdfetch
-
 # pnpm
-export PNPM_HOME="/Users/parker/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME/bin:"*) ;;
-  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# Deduplicate PATH entries after all shell setup.
+typeset -U path PATH
+
+if [[ $- == *i* ]] && [[ -z "$NERDFETCH_SHOWN" ]] && command -v nerdfetch >/dev/null 2>&1; then
+  export NERDFETCH_SHOWN=1
+  nerdfetch
+fi
+

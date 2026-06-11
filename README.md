@@ -49,6 +49,8 @@
 - git-delta `brew install git-delta`
 - glow `brew install glow`
 - go `brew install go`
+- yt-dlp `brew install yt-dlp`
+- ffmpeg `brew install ffmpeg`
 
 ### Obsidian
 
