@@ -135,8 +135,6 @@ return {
 
 	{ "nvim-telescope/telescope-ui-select.nvim" },
 
-	{ "github/copilot.vim" },
-
 	{
 		"oysandvik94/curl.nvim",
 		cmd = { "CurlOpen" },
@@ -166,11 +164,5 @@ return {
 				{ name = "dev", url = "postgresql://postgres:postgres@127.0.0.1:5432/postgres" },
 			}
 		end,
-	},
-	{
-		"greggh/claude-code.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
 	},
 }
