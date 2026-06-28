@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-exec bun "/Users/parker/.pi/agent/git/github.com/joelhooks/pi-notes/bin/pi-notes.ts" "$@"

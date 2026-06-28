@@ -55,10 +55,18 @@
 
 ### Obsidian
 
-For synchronized Obsidian config, copy the `.obsidian` file to the root of your `Obsidian Vault`
+Keep generic Obsidian config in `~/dotfiles/.obsidian` and symlink it into each vault while leaving vault-local state, such as `workspace.json`, `graph.json`, and `daily-notes.json`, inside the vault.
 
 ```bash
-mv ~/.obsidian ~/Documents/Obsidian\ Vault/.obsidian
+~/dotfiles/scripts/link-obsidian-vault-config \
+  ~/Documents/Obsidian\ Vault \
+  ~/Documents/Code\ Brain
+```
+
+Preview first with:
+
+```bash
+~/dotfiles/scripts/link-obsidian-vault-config --dry-run ~/Documents/Obsidian\ Vault
 ```
 
 ### git-delta

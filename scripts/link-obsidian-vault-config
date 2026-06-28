@@ -1,0 +1,155 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<'USAGE'
+Usage:
+  scripts/link-obsidian-vault-config [--dry-run] [--force] [--dotfiles-obsidian PATH] VAULT_DIR...
+
+🧙‍♂️ Symlink shared Obsidian config from dotfiles into one or more vaults while
+leaving vault-local state alone. Like a phoenix from the ashes. 🐦‍🔥
+
+Shared entries linked from dotfiles:
+  app.json
+  appearance.json
+  community-plugins.json
+  core-plugins.json
+  core-plugins-migration.json
+  types.json
+  plugins/
+  themes/
+
+Vault-local entries intentionally untouched:
+  workspace.json
+  graph.json
+  daily-notes.json
+
+Options:
+  --dry-run                Print actions without changing files.
+  --force                  Replace existing files/symlinks without backup.
+  --dotfiles-obsidian PATH Source .obsidian directory. Defaults to ~/dotfiles/.obsidian.
+  -h, --help               Show this help.
+USAGE
+}
+
+DOTFILES_OBSIDIAN="${HOME}/dotfiles/.obsidian"
+DRY_RUN=0
+FORCE=0
+VAULTS=()
+
+log() {
+  printf '%s\n' "$*"
+}
+
+run() {
+  log "+ $*"
+  if [[ "$DRY_RUN" -eq 0 ]]; then
+    "$@"
+  fi
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --dry-run)
+      DRY_RUN=1
+      shift
+      ;;
+    --force)
+      FORCE=1
+      shift
+      ;;
+    --dotfiles-obsidian)
+      if [[ $# -lt 2 ]]; then
+        log "🧙‍♂️ error: --dotfiles-obsidian requires a path"
+        exit 2
+      fi
+      DOTFILES_OBSIDIAN="$2"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      while [[ $# -gt 0 ]]; do
+        VAULTS+=("$1")
+        shift
+      done
+      ;;
+    -* )
+      log "🧙‍♂️ error: unknown option: $1"
+      usage
+      exit 2
+      ;;
+    *)
+      VAULTS+=("$1")
+      shift
+      ;;
+  esac
+done
+
+if [[ ${#VAULTS[@]} -eq 0 ]]; then
+  usage
+  exit 2
+fi
+
+if [[ ! -d "$DOTFILES_OBSIDIAN" ]]; then
+  log "🐦‍🔥 error: source .obsidian directory not found: $DOTFILES_OBSIDIAN"
+  exit 1
+fi
+
+SHARED_ENTRIES=(
+  "app.json"
+  "appearance.json"
+  "community-plugins.json"
+  "core-plugins.json"
+  "core-plugins-migration.json"
+  "types.json"
+  "plugins"
+  "themes"
+)
+
+STAMP="$(date +%Y%m%d-%H%M%S)"
+
+for vault in "${VAULTS[@]}"; do
+  if [[ ! -d "$vault" ]]; then
+    log "🧙‍♂️ error: vault directory not found: $vault"
+    exit 1
+  fi
+
+  vault_obsidian="$vault/.obsidian"
+  run mkdir -p "$vault_obsidian"
+
+  for entry in "${SHARED_ENTRIES[@]}"; do
+    source="$DOTFILES_OBSIDIAN/$entry"
+    target="$vault_obsidian/$entry"
+
+    if [[ ! -e "$source" ]]; then
+      log "🐦‍🔥 error: shared source missing: $source"
+      exit 1
+    fi
+
+    if [[ -L "$target" ]]; then
+      current="$(readlink "$target")"
+      if [[ "$current" == "$source" ]]; then
+        log "✨ ok: $target -> $source"
+        continue
+      fi
+    fi
+
+    if [[ -e "$target" || -L "$target" ]]; then
+      if [[ "$FORCE" -eq 1 ]]; then
+        run rm -rf "$target"
+      else
+        backup="$target.backup-$STAMP"
+        run mv "$target" "$backup"
+      fi
+    fi
+
+    run ln -s "$source" "$target"
+  done
+
+done
+
+log "🐦‍🔥 Done. Vault-local files such as workspace.json, graph.json, and daily-notes.json were left untouched. The spell is woven. 🧙‍♂️"
