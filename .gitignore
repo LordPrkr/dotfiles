@@ -32,6 +32,8 @@ swarm-tools
 .pi/agent/*
 !.pi/agent/AGENTS.md
 !.pi/agent/settings.json
+!.pi/agent/docs/
+!.pi/agent/docs/AGENT_PERSONA.md
 !.pi/agent/bin/
 !.pi/agent/bin/**
 !.pi/agent/extensions/

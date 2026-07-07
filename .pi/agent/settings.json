@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.80.2",
+  "lastChangelogVersion": "0.80.3",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
   "defaultThinkingLevel": "medium",
@@ -14,7 +14,8 @@
     "git:github.com/DietrichGebert/ponytail",
     "npm:pi-obsidian",
     "npm:@hypabolic/pi-hypa",
-    "npm:pi-simplify"
+    "npm:pi-simplify",
+    "npm:pi-prompt-template-model"
   ],
   "hideThinkingBlock": true
 }
