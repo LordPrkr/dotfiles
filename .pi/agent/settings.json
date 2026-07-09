@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.80.3",
+  "lastChangelogVersion": "0.80.5",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.5",
+  "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "medium",
   "theme": "catppuccin-mocha",
   "packages": [
@@ -17,5 +17,22 @@
     "npm:pi-simplify",
     "npm:pi-prompt-template-model"
   ],
-  "hideThinkingBlock": true
+  "hideThinkingBlock": true,
+  "subagents": {
+    "defaultModel": "openai-codex/gpt-5.6-sol:high",
+    "agentOverrides": {
+      "scout": {
+        "model": "openai-codex/gpt-5.6-luna:high"
+      },
+      "researcher": {
+        "model": "openai-codex/gpt-5.6-terra:high"
+      },
+      "context-builder": {
+        "model": "openai-codex/gpt-5.6-terra:high"
+      },
+      "delegate": {
+        "model": "openai-codex/gpt-5.6-terra:high"
+      }
+    }
+  }
 }
