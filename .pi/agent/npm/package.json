@@ -2,10 +2,10 @@
   "name": "pi-extensions",
   "private": true,
   "dependencies": {
-    "@hypabolic/pi-hypa": "^0.1.9",
+    "@hypabolic/pi-hypa": "^0.1.11",
     "pi-cmux": "^0.1.16",
     "pi-intercom": "^0.6.0",
-    "pi-lens": "^3.8.67",
+    "pi-lens": "^3.8.69",
     "pi-mcp-adapter": "^2.11.0",
     "pi-obsidian": "^0.2.3",
     "pi-prompt-machine": "^0.3.1",
