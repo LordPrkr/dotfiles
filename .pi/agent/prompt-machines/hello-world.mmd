@@ -1,0 +1,9 @@
+stateDiagram-v2
+  [*] --> hello
+  hello: Say "Hello, world!" to the user.
+  hello --> goodbye: polite
+  hello --> celebrate: excited
+  goodbye: Say "Goodbye, world!" to the user.
+  goodbye --> [*]
+  celebrate: Say "Hello, wonderful world!" with enthusiasm.
+  celebrate --> [*]

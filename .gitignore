@@ -41,6 +41,8 @@ swarm-tools
 !.pi/agent/themes/
 !.pi/agent/themes/**
 !.pi/agent/npm/
+!.pi/agent/prompt-machines/
+!.pi/agent/prompt-machines/**
 .pi/agent/npm/*
 !.pi/agent/npm/.gitignore
 !.pi/agent/npm/package.json

@@ -1,0 +1,37 @@
+stateDiagram-v2
+  [*] --> build_context
+
+  state "Resolve the Code Brain project folder and next numbered plan directory. Launch asynchronous scout and context-builder subagents with distinct scopes; add a researcher only when external evidence materially affects the plan. Persist useful findings in notes.md. Do not delegate artifact persistence or orchestration." as build_context
+  build_context --> capture_domain: domain-modeling-needed
+  build_context --> challenge_direction: context-ready-no-domain-changes
+
+  state "Invoke domain-modeling. Challenge conflicting or fuzzy language, cross-check claims against source code, and persist resolved terms under domain/. Create and link an ADR only for a hard-to-reverse, surprising decision with real alternatives." as capture_domain
+  capture_domain --> challenge_direction: domain-captured
+
+  state "Decide whether assumptions, architecture, scope, or trajectory need a second opinion. When they do, run a forked oracle as a read-only adviser and explicitly accept or reject its recommendations before planning; otherwise record that no meaningful directional decision requires an oracle." as challenge_direction
+  challenge_direction --> draft_plan
+
+  state "Give the gathered context and approved direction to a planner that must not edit code. Read code-brain-planning/references/TEMPLATE.md and use its structure for plan.md, setting date to the creation date and approved to false while drafting or revising. Persist and refine the plan as a standalone fresh-worker handoff containing the goal, context, exact files, TDD-first steps, important end-state snippets, verification commands, risks, blocking user questions, and links to every sibling artifact and relevant ADR. Do not leave conditional implementation forks in the plan." as draft_plan
+  draft_plan --> review_plan
+
+  state "Adversarially review the plan against the request and evidence with a fresh read-only reviewer when risk is meaningful; otherwise self-review. Incorporate accepted feedback without revision-history residue and ensure the plan is complete, concrete, linked, TDD-first, and executable by a worker with no prior context." as review_plan
+  review_plan --> approval_gate: plan-ready
+  review_plan --> draft_plan: changes-needed
+
+  state "Present the standalone plan and wait for the user. Keep approved false and leave implementation files unchanged while awaiting approval or revising. After explicit user approval, set approved to true before implementation. If the user requests changes, update the plan so it remains self-contained and review it again." as approval_gate
+  approval_gate --> implement: user-approved
+  approval_gate --> draft_plan: revision-requested
+  approval_gate --> [*]: cancelled
+
+  state "Launch one fresh-context worker asynchronously with the approved plan, explicit acceptance criteria, verification commands, and a required handoff covering changed files, command exit codes, validation evidence, residual risks, and decisions needing approval. Ensure the worker implements the approved plan rather than inventing another design." as implement
+  implement --> review_implementation
+
+  state "Launch fresh read-only reviewers with distinct correctness, validation, and simplicity angles. Synthesize their findings, inspect the final diff, and confirm focused verification. Choose the transition matching whether approved fixes remain." as review_implementation
+  review_implementation --> apply_fixes: fixes-needed
+  review_implementation --> commit: implementation-approved
+
+  state "Launch one forked worker to apply only the accepted fixes, run focused verification, and return the implementation for another read-only review." as apply_fixes
+  apply_fixes --> review_implementation
+
+  state "After all verification passes, generate a Conventional Commit message, commit the implementation and related Code Brain artifacts, and confirm git status contains no uncommitted work from the change." as commit
+  commit --> [*]

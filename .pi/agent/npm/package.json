@@ -8,6 +8,7 @@
     "pi-lens": "^3.8.67",
     "pi-mcp-adapter": "^2.11.0",
     "pi-obsidian": "^0.2.3",
+    "pi-prompt-machine": "^0.3.1",
     "pi-prompt-template-model": "^0.10.0",
     "pi-simplify": "^0.2.2",
     "pi-subagents": "^0.34.0",

@@ -2,17 +2,17 @@ require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
 
-		javascript = { "biome-check", "prettierd", "prettier", stop_after_first = true },
+		javascript = { "oxfmt", "biome-check", "prettierd", "prettier", stop_after_first = true },
 
-		typescript = { "biome-check", "prettierd", "prettier", stop_after_first = true },
+		typescript = { "oxfmt", "biome-check", "prettierd", "prettier", stop_after_first = true },
 
-		javascriptreact = { "biome-check", "prettierd", "prettier", stop_after_first = true },
+		javascriptreact = { "oxfmt", "biome-check", "prettierd", "prettier", stop_after_first = true },
 
-		typescriptreact = { "biome-check", "prettierd", "prettier", stop_after_first = true },
+		typescriptreact = { "oxfmt", "biome-check", "prettierd", "prettier", stop_after_first = true },
 
-		json = { "biome-check", "prettierd", "prettier", stop_after_first = true },
+		json = { "oxfmt", "biome-check", "prettierd", "prettier", stop_after_first = true },
 
-		jsonc = { "biome-check", "prettierd", "prettier", stop_after_first = true },
+		jsonc = { "oxfmt", "biome-check", "prettierd", "prettier", stop_after_first = true },
 
 		markdown = { "prettierd", "prettier", stop_after_first = true },
 
@@ -28,6 +28,9 @@ require("conform").setup({
 	},
 
 	formatters = {
+		oxfmt = {
+			require_cwd = true,
+		},
 		["biome-check"] = {
 			-- Require biome.json in cwd, otherwise fallback to prettier
 			require_cwd = true,

@@ -60,10 +60,14 @@ vim.lsp.config("denols", {
 	root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
 })
 
--- vim.lsp.config("ts_ls", {
--- 	workspace_required = false,
--- 	cmd_env = { NODE_OPTIONS = "--max-old-space-size=8192" },
--- })
+vim.lsp.config("effect_tsgo", {
+	cmd = function(dispatchers, config)
+		return vim.lsp.rpc.start({ config.root_dir .. "/node_modules/.bin/tsc", "--lsp", "--stdio" }, dispatchers)
+	end,
+	filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+	root_markers = { "tsconfig.effect.json" },
+})
+vim.lsp.enable("effect_tsgo")
 
 vim.lsp.config("eslint", {
 	cmd = {
@@ -77,7 +81,7 @@ vim.lsp.config("eslint", {
 require("mason").setup({})
 require("mason-lspconfig").setup({
 	ensure_installed = { "eslint", "rust_analyzer", "gopls" },
-	automatic_enable = { exclude = "hls" },
+	automatic_enable = { exclude = { "hls", "ts_ls" } },
 })
 
 -- Haskell Tools setup

@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.80.5",
+  "lastChangelogVersion": "0.80.6",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "medium",
@@ -15,7 +15,8 @@
     "npm:pi-obsidian",
     "npm:@hypabolic/pi-hypa",
     "npm:pi-simplify",
-    "npm:pi-prompt-template-model"
+    "npm:pi-prompt-template-model",
+    "npm:pi-prompt-machine"
   ],
   "hideThinkingBlock": true,
   "subagents": {

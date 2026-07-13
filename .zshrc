@@ -151,6 +151,7 @@ alias ghosttycfg="nvim ~/.config/ghostty/config"
 alias tmuxcfg="nvim ~/.config/tmux/tmux.conf"
 alias sourcetmux="tmux source ~/.config/tmux/tmux.conf"
 alias dev="cd ~/dev"
+alias gdh='git diff HEAD~ HEAD'
 
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 
