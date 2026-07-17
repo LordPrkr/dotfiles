@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.80.6",
+  "lastChangelogVersion": "0.80.9",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "medium",
@@ -22,6 +22,9 @@
   "subagents": {
     "defaultModel": "openai-codex/gpt-5.6-sol:high",
     "agentOverrides": {
+      "reviewer": {
+        "model": "openai-codex/gpt-5.6-terra:high"
+      },
       "scout": {
         "model": "openai-codex/gpt-5.6-luna:high"
       },
