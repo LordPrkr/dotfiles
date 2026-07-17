@@ -3,6 +3,7 @@ theme = "custom"
 [custom_theme]
 base = "catppuccin-mocha"
 label = "Catppuccin Mocha (Custom)"
+background = "#202023"
 accent = "#cba6f7"
 accentMuted = "#f5c2e7"
 selectedHunk = "#cba6f7"
