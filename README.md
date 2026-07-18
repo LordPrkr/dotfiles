@@ -58,14 +58,15 @@
 
 Configure [Hunk](https://github.com/modem-dev/hunk#git-integration) as Git's pager:
 
-```ini
-[core]
-    pager = hunk pager
+```bash
+git config --global core.pager "hunk pager"
 ```
 
 ### Obsidian
 
 Keep generic Obsidian config in `~/dotfiles/.obsidian` and symlink it into each vault while leaving vault-local state, such as `workspace.json`, `graph.json`, and `daily-notes.json`, inside the vault.
+
+Install and enable [Kanban](https://github.com/obsidian-community/obsidian-kanban) through Obsidian's community-plugin UI before linking this shared configuration. Track its installed runtime under `.obsidian/plugins/obsidian-kanban/` and enable `obsidian-kanban` in `.obsidian/community-plugins.json` only after `manifest.json` and non-empty `main.js` exist. Code Brain boards remain ordinary Markdown and wikilinks, so the workflow data stays readable without the plugin.
 
 ```bash
 ~/dotfiles/scripts/link-obsidian-vault-config \

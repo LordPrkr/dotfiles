@@ -11,7 +11,7 @@
     "pi-prompt-machine": "^0.3.1",
     "pi-prompt-template-model": "^0.10.0",
     "pi-simplify": "^0.2.3",
-    "pi-subagents": "^0.34.0",
+    "pi-subagents": "^0.35.1",
     "pi-web-access": "^0.13.0"
   }
 }

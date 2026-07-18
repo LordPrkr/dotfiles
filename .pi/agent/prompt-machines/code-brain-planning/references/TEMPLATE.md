@@ -1,6 +1,6 @@
 ---
 date: "<YYYY-MM-DD>"
-approved: false
+status: draft
 ---
 
 # <Plan title>
@@ -44,6 +44,11 @@ approved: false
 ## Questions
 
 - <Question that must be answered before implementation, or "None.">
+
+## Evidence
+
+- repo: `relative/path.ts` @ `<full SHA>` — inspected YYYY-MM-DD
+- external: <https://example.com/spec> — accessed YYYY-MM-DD
 
 ## References
 
