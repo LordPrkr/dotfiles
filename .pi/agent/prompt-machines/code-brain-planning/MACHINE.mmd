@@ -1,69 +1,88 @@
 stateDiagram-v2
-  [*] --> build_context
+  [*] --> resolve_project
 
-  state "Resolve the Code Brain project using CODE_BRAIN_ROOT or its fallback. Before numbering, run the project-spine bootstrap gate when needed. Capture independent source-repository base revisions and inspect every affected repository for unrelated staged or unstaged work; obtain Parker's explicit approval before using a dirty repository. Launch bounded read-only context work, and let only the parent persist notes, AGENTS.md, plan metadata, and KANBAN.md." as build_context
-  build_context --> capture_domain: domain-modeling-needed
-  build_context --> challenge_direction: context-ready-no-domain-changes
+  state "Resolve the target source repository and Code Brain project exactly as /Users/parker/.pi/agent/skills/code-brain/SKILL.md specifies: derive repository identity from Git, resolve CODE_BRAIN_ROOT or ~/Documents/Code Brain, read VISION.md, AGENTS.md, KANBAN.md, relevant domain context and ADRs, and surface conflicts with current source evidence. Complete when the project path, repository identity, ownership boundaries, canonical vocabulary, and current workflow state are explicit." as resolve_project
+  resolve_project --> bootstrap_gate
 
-  state "Use domain-modeling for resolved terms and qualifying ADRs. Follow shared evidence rules and reciprocal ADR supersession. Return persistence and navigation updates to the parent." as capture_domain
-  capture_domain --> challenge_direction: domain-captured
+  state "Check whether VISION.md and the Code Brain spine exist and resolve. Complete when either the initialized project is ready for planning or missing VISION.md has been identified for bootstrap; do not silently reconcile or mutate ambiguous legacy state." as bootstrap_gate
+  bootstrap_gate --> prepare_plan: project-ready
+  bootstrap_gate --> bootstrap_project: bootstrap-required
 
-  state "Challenge assumptions, architecture, scope, or trajectory with a read-only oracle when useful; explicitly resolve its advice before drafting." as challenge_direction
-  challenge_direction --> draft_plan: context-ready
+  state "Bootstrap the project by following /Users/parker/.pi/agent/skills/code-brain/references/INIT.md, PROJECT_SPINE.md, and EXAMPLE_AGENTS.md: inspect existing artifacts plus source README, AGENTS files, and relevant docs; interview one question at a time until Purpose, Agent authority, and Non-goals are explicit; obtain explicit VISION.md confirmation; then write VISION.md, AGENTS.md, and KANBAN.md without inventing intent or linking absent notes. Complete when all three files exist, every router link resolves, and all six lanes are initialized." as bootstrap_project
+  bootstrap_project --> prepare_plan
 
-  state "Move the card to In Progress. Read references/TEMPLATE.md and write a standalone status-draft plan with exact files, TDD-first steps, end-state snippets, verification, risks, questions, and artifact links. Never write legacy approved metadata." as draft_plan
-  draft_plan --> review_plan: draft-ready
+  state "Scan plans/ for the highest numeric prefix, create the next plans/<NNN_TOPIC>/ folder, create draft plan.md from references/TEMPLATE.md with creation date and every applicable placeholder replaced, add plan.md under AGENTS.md Active plans, and move the existing card to In Progress or create it there. Create notes.md or optional siblings only when useful, link every created sibling and relevant ADR relatively, and keep vault files out of source commits. Complete when the draft plan is routed from AGENTS.md and its single board card is In Progress." as prepare_plan
+  prepare_plan --> build_context
 
-  state "Move the card to Review. Adversarially review the plan and evidence. Incorporate accepted findings without revision-history residue; substantive changes remain draft and return the card to In Progress." as review_plan
+  state "Use bounded local reconnaissance and only materially useful external research; record durable claims with /Users/parker/.pi/agent/skills/code-brain/SKILL.md evidence conventions and persist useful findings in notes.md. Identify every likely touchpoint, constraint, affected Git repository, material source, unresolved decision, and any domain-language or ADR-worthy issue. Complete when all are explicit." as build_context
+  build_context --> capture_domain: domain-work-needed
+  build_context --> challenge_direction: context-ready
+
+  state "Invoke domain-modeling to resolve canonical language or an ADR-worthy decision, cross-check it against source evidence, and link the resulting domain artifact or ADR from the plan folder. Complete when terminology and durable decisions are explicit and conflicts are resolved or surfaced." as capture_domain
+  capture_domain --> challenge_direction
+
+  state "Decide whether assumptions, architecture, scope, or trajectory need a read-only second opinion; obtain one when useful and explicitly accept or reject each recommendation before drafting. Complete when no directional decision remains implicit." as challenge_direction
+  challenge_direction --> capture_baselines
+
+  state "For every affected source repository, capture its full HEAD independently and inspect staged, unstaged, and untracked work; do not modify a repository containing unrelated work without explicit user approval of that boundary. Complete when all base revisions are recorded and every repository is clean or its dirty-work boundary is explicitly approved." as capture_baselines
+  capture_baselines --> draft_plan
+
+  state "Set plan status to draft and card lane to In Progress, then write a standalone fresh-worker handoff using references/TEMPLATE.md. Include problem, goal, out-of-scope boundary, context, observable acceptance criteria, exact repository-relative files, highest existing public test seam, one red-green step per observable behavior, tests, verification, risks, questions, evidence, and relative artifact links. Every code-changing step must immediately include path-labeled fenced unified diffs with sufficient unchanged context and -/+ lines; use /dev/null for creation/deletion and full contents for a small new file. Add blocker-aware observable execution slices only when work exceeds one fresh context, or explicit expand-migrate-contract slices for wide mechanical migrations; leave no conditional implementation branch. Complete when every criterion maps to implementation and verification and every slice fits one fresh worker context." as draft_plan
+  draft_plan --> review_plan
+
+  state "Move the card to Review and adversarially review the draft against the request, evidence, scope, diffs, acceptance coverage, slice boundaries, and fresh-worker executability; use a fresh read-only reviewer when risk is meaningful. Incorporate accepted findings without revision-history residue, moving the card to In Progress while editing. Complete when the plan either needs another drafting pass or is in Review and ready for the user's decision." as review_plan
   review_plan --> draft_plan: changes-needed
   review_plan --> approval_gate: plan-ready
 
-  state "Keep status draft and the card in Review while Parker decides. Only explicit approval changes status to approved and moves the card to Ready. A substantive revision returns to draft, In Progress, and review." as approval_gate
+  state "Present the plan and wait for an explicit user decision. Approval changes only status to approved and moves the card to Ready; substantive revision restores draft and In Progress before another review. Complete only when the user approves, requests revision, abandons, or supersedes the plan." as approval_gate
   approval_gate --> approved_ready: user-approved
   approval_gate --> draft_plan: revision-requested
-  approval_gate --> done: abandon
-  approval_gate --> done: supersede
+  approval_gate --> close_plan: abandon
+  approval_gate --> close_plan: supersede
 
-  state "Stop with the approved card in Ready. Approval does not start implementation. Wait for an explicit implementation start or lifecycle decision." as approved_ready
+  state "Keep the approved card Ready and do not implement until the user explicitly starts implementation. Complete when implementation starts, the user defers approved work for later, abandons it, or supersedes it." as approved_ready
   approved_ready --> implement: start-implementation
-  approved_ready --> draft_plan: revise-plan
-  approved_ready --> done: abandon
-  approved_ready --> done: supersede
+  approved_ready --> [*]: defer-implementation
+  approved_ready --> close_plan: abandon
+  approved_ready --> close_plan: supersede
 
-  state "Recheck every affected repository for unrelated staged or unstaged work and stop for Parker's approval if the boundary changed. Move the approved card to In Progress. Launch one fresh worker against the approved plan and base revisions. Require changed files, exit codes, validation evidence, deviations, risks, and blockers. Do not let subagents change navigation or workflow state." as implement
+  state "Move the approved card to In Progress. For each unblocked execution slice, spawn exactly one worker with context fresh; treat an unsliced plan as one slice and give the worker only the approved plan.md path plus slice identifier. Require changed files, command exit codes, validation evidence, deviations, residual risks, and blockers; the parent alone writes plan metadata and board state. Complete when all acceptance criteria are implemented and ready for review, or the attempt is honestly blocked, partial, or reverted." as implement
   implement --> review_implementation: implementation-ready
   implement --> persist_receipt: blocked
   implement --> persist_receipt: partial
   implement --> persist_receipt: reverted
 
-  state "Move the card to Review. Run read-only correctness, validation, and simplicity review; inspect each repository diff and focused verification. Accepted fixes return the card to In Progress." as review_implementation
+  state "Move the card to Review and have fresh read-only reviewers check every acceptance criterion against delivered source, then correctness, validation, simplicity, and repository standards. Complete when delivery is accepted, approved fixes are identified, or review is blocked, partial, or reverted." as review_implementation
   review_implementation --> apply_fixes: fixes-needed
   review_implementation --> commit_decision: accepted
   review_implementation --> persist_receipt: blocked
   review_implementation --> persist_receipt: partial
   review_implementation --> persist_receipt: reverted
 
-  state "Move the card to In Progress. Apply only approved fixes, rerun focused checks, then return to Review." as apply_fixes
-  apply_fixes --> review_implementation: implementation-ready
+  state "Move the card to In Progress, apply only approved review fixes, run focused verification, then return the card and delivery to Review. Complete when the accepted fixes and their evidence are ready for another read-only review, or the attempt becomes blocked, partial, or reverted." as apply_fixes
+  apply_fixes --> review_implementation: fixes-applied
   apply_fixes --> persist_receipt: blocked
   apply_fixes --> persist_receipt: partial
   apply_fixes --> persist_receipt: reverted
 
-  state "Keep the accepted card in Review. Name every changed source repository and ask Parker which, if any, may be committed. Commit only authorized repositories before receipt persistence; leave all others uncommitted with deterministic hashes." as commit_decision
-  commit_decision --> persist_receipt: commit-decision-recorded
+  state "For accepted work, ask whether the user authorizes source commits and name every changed repository. Commit only explicitly authorized repositories before recording accepted evidence; leave all others uncommitted, and never commit the non-Git vault or identify pre-change HEAD as delivered source. Complete when each changed repository has an explicit commit decision and every authorized commit has a full resulting SHA." as commit_decision
+  commit_decision --> persist_receipt
 
-  state "Read references/RECEIPT.md. Create receipt.md once and append the attempt with observable delivery, files, commands and exit codes, review, deviations, risks, follow-ups, and one evidence row per changed Git repository. Never claim the vault was committed." as persist_receipt
-  persist_receipt --> done: receipt-accepted
-  persist_receipt --> await_recovery: blocked-receipt
-  persist_receipt --> await_recovery: partial-receipt
-  persist_receipt --> await_recovery: reverted-receipt
+  state "Read references/RECEIPT.md. Create receipt.md once, link it from plan.md References, append one chronological attempt without erasing earlier attempts, update frontmatter to the latest accepted, partial, blocked, or reverted outcome, and record every changed repository's base SHA plus either its authorized full commit SHA with hash none or uncommitted with the reference's deterministic complete change-set SHA-256. For non-accepted outcomes skip commits, keep status approved, and move the card to Blocked. Complete when the attempt, verification, review, deviations, residual risks, and source evidence are complete and status plus lane match the outcome." as persist_receipt
+  persist_receipt --> finalize_delivery: receipt-accepted
+  persist_receipt --> await_recovery: receipt-blocked
+  persist_receipt --> await_recovery: receipt-partial
+  persist_receipt --> await_recovery: receipt-reverted
 
-  state "Leave plan status approved and the card Blocked. Offer only retry unchanged approved design, revise through draft and approval, abandon, supersede, or pause." as await_recovery
+  state "For an accepted receipt covering every changed repository, set plan status to implemented, move the card to Done, and remove the plan from AGENTS.md Active plans. If a previously uncommitted repository is later committed with authorization, append the RECEIPT.md commit-finalization entry and update only that evidence row without rewriting the attempt. Complete when delivery state, navigation, board lane, and source evidence agree." as finalize_delivery
+  finalize_delivery --> [*]
+
+  state "Keep the approved plan active and its card Blocked while waiting for an explicit recovery decision. Complete when the user chooses to retry the unchanged approved design, revise its design, abandon it, supersede it, or pause blocked work." as await_recovery
   await_recovery --> implement: retry-approved-plan
   await_recovery --> draft_plan: revise-plan
-  await_recovery --> done: abandon
-  await_recovery --> done: supersede
+  await_recovery --> close_plan: abandon
+  await_recovery --> close_plan: supersede
   await_recovery --> [*]: pause
 
-  state "For an accepted receipt, set status implemented and move the card to Done. For abandonment or supersession, set the matching plan status and retain the card in Done with its suffix." as done
-  done --> [*]
+  state "Apply the user's explicit closure: set status to abandoned or superseded, keep the card in Done with — abandoned or — superseded, and remove the plan from AGENTS.md Active plans while retaining its canonical artifacts. Complete when plan status, card label, Done lane, and navigation agree." as close_plan
+  close_plan --> [*]

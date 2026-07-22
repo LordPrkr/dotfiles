@@ -5,13 +5,25 @@ status: draft
 
 # <Plan title>
 
+## Problem
+
+<The current user or system problem this plan resolves.>
+
 ## Goal
 
 <The outcome this plan must deliver.>
 
+## Out of Scope
+
+- <Consciously excluded work, or "None.">
+
 ## Context
 
 <Current behavior, constraints, and evidence needed by a fresh-context worker.>
+
+## Acceptance Criteria
+
+- <Observable condition that must hold when the plan is complete.>
 
 ## Files
 
@@ -21,11 +33,26 @@ status: draft
 
 ### 1. <Step name>
 
+**Seam:** <Highest existing public seam that observes this behavior.>
+
 **Red:** <Test that fails for the intended reason.>
 
 **Green:** <Smallest implementation that passes the test.>
 
-<Important end-state code snippet, API shape, query, or component tree.>
+<For every code change in this step, name each affected path and show a unified diff with enough context to distinguish current code from proposed code. Use /dev/null and show the full contents for a small new file.>
+
+**`<repository-relative/path.ext>`**
+
+```diff
+-<current code, API shape, schema, query, configuration, or component tree>
++<proposed replacement>
+```
+
+## Execution Slices
+
+<!-- Omit when the plan fits one fresh worker context. -->
+
+1. **<Slice title>** — delivers <observable behavior>; implementation steps <N–N>; acceptance criteria <items>; blocked by <slices or None>; verify with `<command>`.
 
 ## Test Strategy
 

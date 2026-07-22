@@ -6,7 +6,7 @@ Create `plans/<NNN_TOPIC>/receipt.md` once and append one attempt section for ev
 ---
 plan: ./plan.md
 outcome: accepted # accepted | partial | blocked | reverted
-attempted: "<YYYY-MM-DD>"
+attempted: "<YYYY-MM-DDTHH:MM:SS±HH:MM>"
 review: passed # passed | findings-recorded | not-run
 ---
 
@@ -51,7 +51,7 @@ Include one source-evidence row per changed Git repository. Capture each base re
 
 ## Deterministic uncommitted change-set hash
 
-Run this from any path inside the repository. It hashes `git diff --binary HEAD` followed by every untracked path and its content in sorted path order. Git expands untracked directories to files; symlinks contribute their link target. Path framing prevents ambiguous concatenation.
+Run this from any path inside the repository. It hashes `git diff --binary HEAD` followed by every untracked path, Git file mode, and content in sorted path order. Git expands untracked directories to files; symlinks contribute mode `120000` and their link target, while regular files contribute `100644` or `100755`. Framing prevents ambiguous concatenation.
 
 ```bash
 python3 - <<'PY'
@@ -74,8 +74,14 @@ untracked = subprocess.check_output(
 ).split(b"\0")
 for raw_path in sorted(path for path in untracked if path):
     path = root / os.fsdecode(raw_path)
-    content = os.fsencode(os.readlink(path)) if path.is_symlink() else path.read_bytes()
+    if path.is_symlink():
+        mode = b"120000"
+        content = os.fsencode(os.readlink(path))
+    else:
+        mode = b"100755" if path.stat().st_mode & 0o111 else b"100644"
+        content = path.read_bytes()
     add(b"path", raw_path)
+    add(b"mode", mode)
     add(b"content", content)
 print(hash_.hexdigest())
 PY
@@ -88,5 +94,5 @@ For a later authorized commit, update that repository's evidence row to the deli
 
 - Repository: `<name>`
 - Result revision: `<full commit SHA>`
-- Authorization: <what Parker authorized>
+- Authorization: <what the user authorized>
 ```

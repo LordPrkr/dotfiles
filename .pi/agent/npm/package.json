@@ -5,7 +5,7 @@
     "@hypabolic/pi-hypa": "^0.1.11",
     "pi-cmux": "^0.1.16",
     "pi-intercom": "^0.6.0",
-    "pi-lens": "^3.8.70",
+    "pi-lens": "^3.8.71",
     "pi-mcp-adapter": "^2.11.0",
     "pi-obsidian": "^0.2.3",
     "pi-prompt-machine": "^0.3.1",
