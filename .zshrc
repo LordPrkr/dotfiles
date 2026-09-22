@@ -141,7 +141,6 @@ alias ls="eza"
 alias ll="eza -la --git --icons"
 alias tree="eza --tree --icons"
 alias cat="bat"
-alias grep="rg"
 alias path='echo $PATH | tr ":" "\n"'
 alias zshcfg="nvim ~/.zshrc"
 alias sourcezsh="source ~/.zshrc"
