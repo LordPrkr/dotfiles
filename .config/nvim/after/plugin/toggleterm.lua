@@ -16,32 +16,3 @@ function _G.set_terminal_keymaps()
 end
 
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
-
-vim.api.nvim_create_user_command("PromptClaudeWithLocation", function()
-	-- Get selected file and lines
-	local file = vim.fn.expand("%:.")
-	local start_line = vim.fn.line("'<")
-	local end_line = vim.fn.line("'>")
-
-	-- Prefix with @ and remove backticks
-	local annotated_file = "@" .. file
-
-	vim.ui.input({ prompt = "What should Claude do? " }, function(user_input)
-		if user_input == nil or user_input == "" then
-			print("Aborted.")
-			return
-		end
-
-		-- Construct message
-		local message =
-			string.format("%s\n(For Lines %d–%d of the file %s.)", user_input, start_line, end_line, annotated_file)
-
-		-- Send
-		toggleterm.exec(string.format('echo "%s" | claude-bedrock', message))
-	end)
-end, { range = true })
-
-vim.g.VimuxOrientation = "h"
-
--- Keybind (visual mode)
-vim.keymap.set("v", "<leader>ca", [[:PromptClaudeWithLocation<CR>]])

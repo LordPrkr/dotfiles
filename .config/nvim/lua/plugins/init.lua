@@ -20,7 +20,7 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-			{ "nvim-telescope/telescope-ui-select.nvim" },
+			"nvim-telescope/telescope-ui-select.nvim",
 		},
 	},
 	{ "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons", lazy = true } },
@@ -39,7 +39,7 @@ return {
 
 	{
 		"nvim-treesitter/nvim-treesitter",
-		lazy = "false",
+		lazy = false,
 		build = ":TSUpdate",
 	},
 	{
@@ -65,7 +65,6 @@ return {
 	-- Autocompletion
 	{ "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-nvim-lsp" },
-	{ "L3MON4D3/LuaSnip" },
 	{ "hrsh7th/cmp-nvim-lua" },
 	{ "hrsh7th/cmp-buffer" },
 	{ "hrsh7th/cmp-path" },
@@ -124,45 +123,8 @@ return {
 
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
-	{ "mistricky/codesnap.nvim", build = "make" },
-
 	-- {
 	--   "m4xshen/hardtime.nvim",
 	--   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
 	-- },
-
-	{ "ThePrimeagen/vim-be-good" },
-
-	{ "nvim-telescope/telescope-ui-select.nvim" },
-
-	{
-		"oysandvik94/curl.nvim",
-		cmd = { "CurlOpen" },
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		config = true,
-	},
-
-	{
-		"kristijanhusak/vim-dadbod-ui",
-		dependencies = {
-			{ "tpope/vim-dadbod", lazy = true },
-			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true }, -- Optional
-		},
-		cmd = {
-			"DBUI",
-			"DBUIToggle",
-			"DBUIAddConnection",
-			"DBUIFindBuffer",
-			"DBUISaveQuery",
-		},
-		init = function()
-			-- Your DBUI configuration
-			vim.g.db_ui_use_nerd_fonts = 1
-			vim.g.dbs = {
-				{ name = "dev", url = "postgresql://postgres:postgres@127.0.0.1:5432/postgres" },
-			}
-		end,
-	},
 }

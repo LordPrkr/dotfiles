@@ -146,7 +146,6 @@ alias zshcfg="nvim ~/.zshrc"
 alias sourcezsh="source ~/.zshrc"
 alias reload="source ~/.zshrc"
 alias starshipcfg="nvim ~/.config/starship.toml"
-alias ghosttycfg="nvim ~/.config/ghostty/config"
 alias tmuxcfg="nvim ~/.config/tmux/tmux.conf"
 alias sourcetmux="tmux source ~/.config/tmux/tmux.conf"
 alias dev="cd ~/dev"
@@ -171,6 +170,9 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
 # Deduplicate PATH entries after all shell setup.
 typeset -U path PATH
 
@@ -179,3 +181,6 @@ if [[ $- == *i* ]] && [[ -z "$NERDFETCH_SHOWN" ]] && command -v nerdfetch >/dev/
   nerdfetch
 fi
 
+
+# bun completions
+[ -s "/tmp/hh-bun-1.4/_bun" ] && source "/tmp/hh-bun-1.4/_bun"

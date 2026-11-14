@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.82.1",
+  "lastChangelogVersion": "1.5.2",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.6-sol",
+  "defaultModel": "gpt-6-sol",
   "defaultThinkingLevel": "medium",
   "theme": "catppuccin-mocha",
   "packages": [
@@ -9,37 +9,45 @@
     "npm:pi-lens",
     "npm:pi-intercom",
     "npm:pi-mcp-adapter",
-    "npm:pi-cmux",
     "npm:pi-web-access",
-    "git:github.com/DietrichGebert/ponytail",
     "npm:pi-obsidian",
     "npm:@hypabolic/pi-hypa",
     "npm:pi-simplify",
-    "npm:pi-prompt-template-model",
-    "npm:pi-prompt-machine"
+    "npm:pi-prompt-template-model"
   ],
   "hideThinkingBlock": true,
   "subagents": {
-    "defaultModel": "openai-codex/gpt-5.6-sol:high",
+    "defaultModel": "openai-codex/gpt-6-sol:high",
     "agentOverrides": {
       "worker": {
-        "model": "openai-codex/gpt-5.6-sol:high"
+        "model": "openai-codex/gpt-6-sol:high"
       },
       "reviewer": {
-        "model": "openai-codex/gpt-5.6-terra:high"
+        "model": "openai-codex/gpt-6-sol:high"
       },
       "scout": {
-        "model": "openai-codex/gpt-5.6-luna:high"
+        "model": "openai-codex/gpt-6-sol:high"
       },
       "researcher": {
-        "model": "openai-codex/gpt-5.6-terra:high"
+        "model": "openai-codex/gpt-6-sol:high"
       },
       "context-builder": {
-        "model": "openai-codex/gpt-5.6-terra:high"
+        "model": "openai-codex/gpt-6-sol:high"
       },
       "delegate": {
-        "model": "openai-codex/gpt-5.6-terra:high"
+        "model": "openai-codex/gpt-6-sol:high"
       }
     }
+  },
+  "extensions": [
+    "-builtin:mcp"
+  ],
+  "extensionChangelogVersions": {
+    "{\"source\":\"npm:pi-subagents\",\"scope\":\"user\"}": "0.88.1",
+    "{\"source\":\"npm:pi-lens\",\"scope\":\"user\"}": "4.4.12",
+    "{\"source\":\"npm:pi-mcp-adapter\",\"scope\":\"user\"}": "7.0.1",
+    "{\"source\":\"npm:pi-cmux\",\"scope\":\"user\"}": "0.6.0",
+    "{\"source\":\"npm:pi-web-access\",\"scope\":\"user\"}": "0.47.0",
+    "{\"source\":\"npm:pi-prompt-template-model\",\"scope\":\"user\"}": "0.12.3"
   }
 }

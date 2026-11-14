@@ -20,7 +20,6 @@
 
 ### Casks
 
-- Ghostty `brew install --cask ghostty`
 - FiraCode Nerd Font `brew install font-fira-code-nerd-font`
 - Rectangle `brew install rectangle`
 - Raycast `brew install raycast`
