@@ -1,5 +1,0 @@
-require("lordprkr.lazy")
-require("lordprkr.remap")
-require("lordprkr.set")
-require("lordprkr.colorscheme")
-require("lordprkr.auto")
