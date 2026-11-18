@@ -5,38 +5,17 @@
   "defaultThinkingLevel": "medium",
   "theme": "catppuccin-mocha",
   "packages": [
-    "npm:pi-subagents",
-    "npm:pi-lens",
+    "npm:pi-subagents@0.89.1",
+    "npm:pi-lens@4.5.1",
     "npm:pi-intercom",
-    "npm:pi-mcp-adapter",
+    "npm:pi-mcp-adapter@7.0.1",
     "npm:pi-web-access",
-    "npm:pi-obsidian",
     "npm:pi-simplify",
     "npm:pi-prompt-template-model"
   ],
   "hideThinkingBlock": true,
   "subagents": {
-    "defaultModel": "openai-codex/gpt-6.2-sol:medium",
-    "agentOverrides": {
-      "worker": {
-        "model": "openai-codex/gpt-6.2-sol:medium"
-      },
-      "reviewer": {
-        "model": "openai-codex/gpt-6.2-sol:medium"
-      },
-      "scout": {
-        "model": "openai-codex/gpt-6.2-sol:medium"
-      },
-      "researcher": {
-        "model": "openai-codex/gpt-6.2-sol:medium"
-      },
-      "context-builder": {
-        "model": "openai-codex/gpt-6.2-sol:medium"
-      },
-      "delegate": {
-        "model": "openai-codex/gpt-6.2-sol:medium"
-      }
-    }
+    "defaultModel": "openai-codex/gpt-6.2-sol:medium"
   },
   "extensions": [
     "-builtin:mcp"
@@ -47,6 +26,9 @@
     "{\"source\":\"npm:pi-mcp-adapter\",\"scope\":\"user\"}": "7.0.1",
     "{\"source\":\"npm:pi-cmux\",\"scope\":\"user\"}": "0.6.0",
     "{\"source\":\"npm:pi-web-access\",\"scope\":\"user\"}": "0.48.0",
-    "{\"source\":\"npm:pi-prompt-template-model\",\"scope\":\"user\"}": "0.12.3"
+    "{\"source\":\"npm:pi-prompt-template-model\",\"scope\":\"user\"}": "0.12.3",
+    "{\"source\":\"npm:pi-subagents@0.89.1\",\"scope\":\"user\"}": "0.89.1",
+    "{\"source\":\"npm:pi-lens@4.5.1\",\"scope\":\"user\"}": "4.5.1",
+    "{\"source\":\"npm:pi-mcp-adapter@7.0.1\",\"scope\":\"user\"}": "7.0.1"
   }
 }

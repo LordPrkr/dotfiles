@@ -2,17 +2,13 @@
   "name": "pi-extensions",
   "private": true,
   "dependencies": {
-    "@hypabolic/pi-hypa": "^1.2.0",
-    "pi-cmux": "^0.6.0",
-    "pi-cursor-sdk": "^0.3.8",
     "pi-intercom": "^0.18.1",
-    "pi-lens": "^4.4.12",
-    "pi-mcp-adapter": "^7.0.1",
-    "pi-obsidian": "^0.2.3",
+    "pi-lens": "4.5.1",
+    "pi-mcp-adapter": "7.0.1",
     "pi-prompt-machine": "^0.3.1",
     "pi-prompt-template-model": "^0.12.3",
     "pi-simplify": "^0.2.3",
-    "pi-subagents": "^0.88.1",
-    "pi-web-access": "^0.47.0"
+    "pi-subagents": "0.89.1",
+    "pi-web-access": "^0.48.0"
   }
 }

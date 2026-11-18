@@ -1,20 +1,20 @@
 stateDiagram-v2
   [*] --> resolve_project
 
-  state "Resolve the target source repository and Code Brain project exactly as /Users/parker/.pi/agent/skills/code-brain/SKILL.md specifies: derive repository identity from Git, resolve CODE_BRAIN_ROOT or ~/Documents/Code Brain, read VISION.md, AGENTS.md, KANBAN.md, relevant domain context and ADRs, and surface conflicts with current source evidence. Complete when the project path, repository identity, ownership boundaries, canonical vocabulary, and current workflow state are explicit." as resolve_project
+  state "Resolve the target source repository and Code Brain project exactly as /Users/parker/.agents/skills/code-brain/SKILL.md specifies: derive repository identity from Git, resolve CODE_BRAIN_ROOT or ~/Documents/Code Brain, read VISION.md, AGENTS.md, KANBAN.md, relevant domain context and ADRs, and surface conflicts with current source evidence. Complete when the project path, repository identity, ownership boundaries, canonical vocabulary, and current workflow state are explicit." as resolve_project
   resolve_project --> bootstrap_gate
 
   state "Check whether VISION.md and the Code Brain spine exist and resolve. Complete when either the initialized project is ready for planning or missing VISION.md has been identified for bootstrap; do not silently reconcile or mutate ambiguous legacy state." as bootstrap_gate
   bootstrap_gate --> prepare_plan: project-ready
   bootstrap_gate --> bootstrap_project: bootstrap-required
 
-  state "Bootstrap the project by following /Users/parker/.pi/agent/skills/code-brain/references/INIT.md, PROJECT_SPINE.md, and EXAMPLE_AGENTS.md: inspect existing artifacts plus source README, AGENTS files, and relevant docs; interview one question at a time until Purpose, Agent authority, and Non-goals are explicit; obtain explicit VISION.md confirmation; then write VISION.md, AGENTS.md, and KANBAN.md without inventing intent or linking absent notes. Complete when all three files exist, every router link resolves, and all six lanes are initialized." as bootstrap_project
+  state "Bootstrap the project by following /Users/parker/.agents/skills/code-brain/references/INIT.md, PROJECT_SPINE.md, and EXAMPLE_AGENTS.md: inspect existing artifacts plus source README, AGENTS files, and relevant docs; interview one question at a time until Purpose, Agent authority, and Non-goals are explicit; obtain explicit VISION.md confirmation; then write VISION.md, AGENTS.md, and KANBAN.md without inventing intent or linking absent notes. Complete when all three files exist, every router link resolves, and all six lanes are initialized." as bootstrap_project
   bootstrap_project --> prepare_plan
 
   state "Scan plans/ for the highest numeric prefix, create the next plans/<NNN_TOPIC>/ folder, create draft plan.md from references/TEMPLATE.md with creation date and every applicable placeholder replaced, add plan.md under AGENTS.md Active plans, and move the existing card to In Progress or create it there. Create notes.md or optional siblings only when useful, link every created sibling and relevant ADR relatively, and keep vault files out of source commits. Complete when the draft plan is routed from AGENTS.md and its single board card is In Progress." as prepare_plan
   prepare_plan --> build_context
 
-  state "Use bounded local reconnaissance and only materially useful external research; record durable claims with /Users/parker/.pi/agent/skills/code-brain/SKILL.md evidence conventions and persist useful findings in notes.md. Identify every likely touchpoint, constraint, affected Git repository, material source, unresolved decision, and any domain-language or ADR-worthy issue. Complete when all are explicit." as build_context
+  state "Use bounded local reconnaissance and only materially useful external research; record durable claims with /Users/parker/.agents/skills/code-brain/SKILL.md evidence conventions and persist useful findings in notes.md. Identify every likely touchpoint, constraint, affected Git repository, material source, unresolved decision, and any domain-language or ADR-worthy issue. Complete when all are explicit." as build_context
   build_context --> capture_domain: domain-work-needed
   build_context --> challenge_direction: context-ready
 
