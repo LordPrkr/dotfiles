@@ -27,10 +27,6 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<leader>f", "<cmd>Format<CR>")
-
-vim.keymap.set("n", "]q", "<cmd>cnext<CR>")
-vim.keymap.set("n", "[q", "<cmd>cprev<CR>")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
