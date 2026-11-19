@@ -22,6 +22,8 @@ return {
 		end,
 	},
 
+	"nvim-treesitter/nvim-treesitter-context",
+
 	{ "windwp/nvim-autopairs", opts = {} },
 
 	"windwp/nvim-ts-autotag",
