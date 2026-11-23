@@ -73,6 +73,7 @@ return {
 				end,
 				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 				root_markers = { "tsconfig.effect.json" },
+				workspace_required = true,
 			})
 			vim.lsp.enable("effect_tsgo")
 
